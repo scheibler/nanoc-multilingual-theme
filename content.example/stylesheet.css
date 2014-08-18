@@ -1,0 +1,101 @@
+body {
+    color: black; background-color: #ffffe0;
+    font: normal 100.01% Helvetica, Arial, sans-serif;
+    padding: 20px;
+}
+
+main {
+    display:block;
+}
+
+h1 {
+    font-size: 1.3em;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size: 1.1em;
+}
+
+h4 {
+    font-size: 1.05em;
+}
+
+/* horizontal navigation div on top of the site */
+nav#NavigationFrame {
+    padding: 0.8em;
+}
+
+nav#NavigationFrame nav {
+    clear: left;
+}
+
+ul#Navigation {
+    margin: 0;
+    padding: 0.8em;
+    text-align: center;
+}
+
+ul#Navigation li {
+    list-style: none;
+    float: left;
+    position: relative;
+    margin: 0.4em;
+    padding: 0;
+}
+
+ul#Navigation li ul {
+    margin: 0; padding: 0;
+    position: absolute;
+    top: 1.7em; left: -0.4em;
+}
+
+ul#Navigation li ul li {
+    float: none;
+    display: block;
+    margin-bottom: 0.2em;
+}
+
+ul#Navigation a, ul#Navigation span {
+    display: block;
+    padding: 0.2em 1em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* main container */
+#main {
+    margin: 0 auto;
+    max-width: 1000px;
+    padding-right: 320px; /* padding should be the total width of all right columns */
+}
+
+/* next sections cover the blog's main layout */
+/* position content and sidebar divs side by side */
+#content {
+    float: left;
+    width: 100%;
+    min-width: 400px;
+    padding-right: 20px;
+}
+
+#sidebar {
+    float: left;
+    width: 300px;
+    margin-right: -1300px;
+    padding-top: 50px; /* extra space padding */
+}
+
+/* blog article layout */
+.post article {
+    margin: 10px 0 60px 0;
+}
+
+.post aside {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #aaa;
+}
+

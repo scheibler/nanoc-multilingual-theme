@@ -1,0 +1,42 @@
+<% render 'blog/default' do %>
+    <% current_site_number = (item[:start_index] / @site.config[:number_of_articles_at_blog_index_page])+1 %>
+    <% max_site_number = (sorted_blog_article_list_for(language_code_of(item)).length / @site.config[:number_of_articles_at_blog_index_page])+1 %>
+    <% index = item[:start_index] %>
+    <% boundary = index + @site.config[:number_of_articles_at_blog_index_page] %>
+    <% article_list = sorted_blog_article_list_for(language_code_of(item)) %>
+
+    <% if article_list.length == 0 %>
+        <h1><%= translate_string(language_code_of(item), "no_articles_in_this_language") %></h1>
+    <% else %>
+        <h1><%= translate_string(language_code_of(item), "para_site_x_of_y_long") % [current_site_number, max_site_number] %></h1>
+        <% while index < boundary and index < article_list.length %>
+            <% post = article_list[index] %>
+            <article class='post'>
+                <header>
+                    <h2><%= link_to post[:title], post.path %></h2>
+                    <p><%= get_pretty_date(post) %></p>
+                </header>
+                <%= get_post_start(post) %>
+            </article>
+            <% index += 1 %>
+        <% end %>
+        <hr />
+
+        <nav id="prev_and_next_articles" role="navigation">
+        <% if current_site_number == 2 %>
+            <%= link_to(translate_string(language_code_of(item), "link_newer_articles"),
+                "/%s/blog/" % language_code_of(item), { :accesskey => '1' }) %>
+        <% elsif current_site_number > 2 %>
+            <%= link_to(translate_string(language_code_of(item), "link_newer_articles"),
+                "/%s/blog/index-%.2d.html" % [language_code_of(item), (current_site_number-1)],
+                { :accesskey => '1' }) %>
+        <% end %>
+        <%= translate_string(language_code_of(item), "para_site_x_of_y_short") % [current_site_number, max_site_number] %>
+        <% if current_site_number < max_site_number %>
+            <%= link_to(translate_string(language_code_of(item), "link_older_articles"),
+                "/%s/blog/index-%.2d.html" % [language_code_of(item), (current_site_number+1)],
+                { :accesskey => '2' }) %>
+        <% end %>
+        </nav>
+    <% end %>
+<% end %>

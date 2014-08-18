@@ -1,0 +1,12 @@
+<% render 'blog/default' do %>
+    <h1><%= translate_string(language_code_of(item), 'heading_articles_for_tag') % [item[:tag], item[:count]] %></h1>
+    <% all_articles_for_tag(language_code_of(item), item[:tag]).each do |post| %>
+        <article class='post'>
+            <header>
+                <h2><%= link_to post[:title], post.path %></h2>
+                <p><%= get_pretty_date(post) %></p>
+            </header>
+            <%= get_post_start(post) %>
+        </article>
+    <% end %>
+<% end %>

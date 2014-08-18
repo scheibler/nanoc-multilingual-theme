@@ -1,0 +1,30 @@
+<aside id="sidebar" role="complementary">
+    <h1><%= translate_string(language_code_of(item), "heading_sidebar") %></h1>
+    <a href="/<%= language_code_of(item) %>/blog/feed.xml">RSS Feed</a>
+
+    <h2><%= translate_string(language_code_of(item), "heading_important_tags") %></h2>
+    <% tag_list = all_tags(language_code_of(item), true, @site.config[:number_of_sidebar_tags]) %>
+    <% if tag_list.length == 0 %>
+        <p><%= translate_string(language_code_of(item), "no_tags_available") %></p>
+    <% else %>
+        <ul>
+        <% tag_list.each do |tag| %>
+            <li><%= link_to("%s (%d)" % [tag[0], tag[1]], "/%s/blog/tags/%s.html" % [language_code_of(item), tag[0].gsub(' ','-')]) %></li>
+        <% end %>
+        </ul>
+        <%= link_to(translate_string(language_code_of(item), "link_show_all_tags"),
+            "/%s/blog/tags.html" % language_code_of(item)) %>
+    <% end %>
+
+    <h2><%= translate_string(language_code_of(item), "heading_recent_articles") %></h2>
+    <% article_list = sorted_blog_article_list_for(language_code_of(item))[0...@site.config[:number_of_recent_articles]] %>
+    <% if article_list.length == 0 %>
+        <p><%= translate_string(language_code_of(item), "no_articles_available") %></p>
+    <% else %>
+        <ul>
+        <% article_list.each do |post| %>
+            <li><%= link_to post[:title], post.path %></li>
+        <% end %>
+        </ul>
+    <% end %>
+</aside>
