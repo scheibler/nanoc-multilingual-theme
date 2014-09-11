@@ -5,7 +5,7 @@ Multilingual Theme for Nanoc
 the following key features:
 
 * Support for multilingual sites
-* Use [Pandocs markdown dialect](http://johnmacfarlane.net/pandoc/) to create content sites
+* Use [Pandoc's markdown dialect](http://johnmacfarlane.net/pandoc/) to create content sites
 * Filters to import text from file and create table of content
 * One horizontal navigation bar on top of the site
 * Uses HTML5 objects
@@ -22,7 +22,8 @@ The theme needs the following gems:
 $ gem install --user-install rake nanoc adsf pandoc-ruby listen iconv builder stringex
 ```
 
-And the local path to the gems must be added to the bin paths. This is shell specific. Example for ZSH:
+And the local path to the gems must be added to the bin paths. This is shell specific. Example for
+zsh:
 
 ```
 $ vim ~/.zshrc
