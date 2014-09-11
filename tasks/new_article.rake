@@ -15,7 +15,7 @@ def create_new_article(title, date, language)
         post.puts 'kind: article'
         post.puts "created_at: %s" % date.strftime('%Y-%m-%d %H:%M:%S')
         post.puts "canonical_identifier: %s" % date.strftime('%Y%m%d%H%M%S')
-        post.puts 'Tags:'
+        post.puts 'tags:'
         post.puts "---\n\n"
     end
 end
