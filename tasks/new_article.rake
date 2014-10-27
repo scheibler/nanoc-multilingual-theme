@@ -1,8 +1,10 @@
 require 'stringex'
+require 'iconv'
 
 def create_new_article(title, date, language)
     article_folder = "content/%s/blog/%s/%s-%s" %
-        [ language, date.strftime('%Y'), date.strftime('%Y-%m-%d'), title.gsub(' ', '-') ]
+        [ language, date.strftime('%Y'), date.strftime('%Y-%m-%d'),
+          Iconv.conv('ascii//translit', 'utf-8', title).downcase.gsub(' ', '-') ]
     mkdir_p article_folder
     filename = "%s/index.md" % article_folder
     if File.exist?(filename)
