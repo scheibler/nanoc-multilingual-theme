@@ -1,6 +1,9 @@
 <% render 'blog/default' do %>
+    <% max_site_number = sorted_blog_article_list_for(language_code_of(item)).length / @site.config[:number_of_articles_at_blog_index_page] %>
+    <% if (sorted_blog_article_list_for(language_code_of(item)).length % @site.config[:number_of_articles_at_blog_index_page]) != 0 %>
+        <% max_site_number += 1 %>
+    <% end %>
     <% current_site_number = (item[:start_index] / @site.config[:number_of_articles_at_blog_index_page])+1 %>
-    <% max_site_number = (sorted_blog_article_list_for(language_code_of(item)).length / @site.config[:number_of_articles_at_blog_index_page])+1 %>
     <% index = item[:start_index] %>
     <% boundary = index + @site.config[:number_of_articles_at_blog_index_page] %>
     <% article_list = sorted_blog_article_list_for(language_code_of(item)) %>
