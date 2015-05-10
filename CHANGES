@@ -1,0 +1,6 @@
+2015-05-10:
+    layouts/redirect.php:
+        - Support for encrypted URL's in language redirect script
+    nanoc.yaml.example:
+        - renamed variable "site_title" to "blog_title"
+

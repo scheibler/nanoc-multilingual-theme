@@ -1,22 +1,19 @@
 # nanoc website settings
 
-# author
-site_author: 'authors name'
-
-# authors uri
-author_uri: 'http://example.org'
-
-# site title
-site_title: 'site title'
-
 # site base url
 base_url: 'http://example.org'
+
+# author
+site_author: 'authors name'
 
 # order of the navigation bar
 # add the canonical identifier of all pages, you wwant to show in the navigation bar
 navigation_bar_entries: ["home", "blog_home", "contact"]
 
-# next are some blog options
+# blog options
+# blog title
+blog_title: 'blog title'
+
 # number of articles at the blog index page
 number_of_articles_at_blog_index_page: 10
 

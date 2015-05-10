@@ -19,7 +19,7 @@ Minimal instructions
 The theme needs the following gems:
 
 ```
-$ gem install --user-install rake nanoc adsf pandoc-ruby listen iconv builder stringex
+$ gem install --user-install rake nanoc adsf pandoc-ruby listen iconv builder stringex nokogiri w3c_validators
 ```
 
 And the local path to the gems must be added to the bin paths. This is shell specific. Example for

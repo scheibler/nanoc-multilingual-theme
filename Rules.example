@@ -38,8 +38,8 @@ preprocess do
         end
         # blog rss feed
         items << Nanoc::Item.new(
-            "<%= atom_feed :title => @site.config[:site_title], :author_name => @site.config[:site_author],
-                :author_uri => @site.config[:author_uri], :limit => @site.config[:number_of_rss_feed_entries],
+            "<%= atom_feed :title => @site.config[:blog_title], :author_name => @site.config[:site_author],
+                :author_uri => @site.config[:base_url], :limit => @site.config[:number_of_rss_feed_entries],
                 :articles => sorted_blog_article_list_for(language_code_of(item)) %>",
             { :kind => 'feed' }, "/" + language + "/blog/feed/")
         # tags main page
