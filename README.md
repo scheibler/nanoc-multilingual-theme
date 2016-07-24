@@ -4,13 +4,16 @@ Multilingual Theme for Nanoc
 [Nanoc](http://nanoc.ws/) is a static website generator. This repository contains a nanoc theme with
 the following key features:
 
-* Support for multilingual sites
+* Create bilingual Website with German and English variants
+  - See lib/helpers/localization.rb if you need other languages
+  - Extension to more than two language variants would be possible to achieve with medium effort
 * Use [Pandoc's markdown dialect](http://johnmacfarlane.net/pandoc/) to create content sites
-* Filters to import text from file and create table of content
+* Filters to import text from file and create table of contents
 * One horizontal navigation bar on top of the site
 * Uses HTML5 objects
 * Optional module to create a simple blog
 * Implements basic accessibility features
+* Compatible to Nanoc4 in legacy mode
 
 For the installation of nanoc, visit http://nanoc.ws/install/.
 

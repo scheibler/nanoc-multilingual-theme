@@ -3,7 +3,7 @@
     <a href="/<%= language_code_of(item) %>/blog/feed.xml">RSS Feed</a>
 
     <h2><%= translate_string(language_code_of(item), "heading_important_tags") %></h2>
-    <% tag_list = all_tags(language_code_of(item), true, @site.config[:number_of_sidebar_tags]) %>
+    <% tag_list = all_tags(language_code_of(item), true, @config[:number_of_sidebar_tags]) %>
     <% if tag_list.length == 0 %>
         <p><%= translate_string(language_code_of(item), "no_tags_available") %></p>
     <% else %>
@@ -17,7 +17,7 @@
     <% end %>
 
     <h2><%= translate_string(language_code_of(item), "heading_recent_articles") %></h2>
-    <% article_list = sorted_blog_article_list_for(language_code_of(item))[0...@site.config[:number_of_recent_articles]] %>
+    <% article_list = sorted_blog_article_list_for(language_code_of(item))[0...@config[:number_of_recent_articles]] %>
     <% if article_list.length == 0 %>
         <p><%= translate_string(language_code_of(item), "no_articles_available") %></p>
     <% else %>

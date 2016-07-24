@@ -1,6 +1,10 @@
-2015-05-10:
+Version 0.1.0: 2015-05-10
     layouts/redirect.php:
         - Support for encrypted URL's in language redirect script
     nanoc.yaml.example:
         - renamed variable "site_title" to "blog_title"
+
+Version 0.2.0: 2016-07-25
+- Converted template to nanoc4
+- new rake tasks local and remote
 

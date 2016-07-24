@@ -7,7 +7,7 @@ module Custom::Localization
     }
 
     def language_code_of(item)
-        (item.identifier.match(/^\/([a-z]{2})\//) || [])[1]
+        (item.identifier.to_s.match(/^\/([a-z]{2})\//) || [])[1]
     end
 
     def translations_of(item)
@@ -26,7 +26,7 @@ module Custom::Localization
 
     def items_for_navigation_bar(language)
         item_list = []
-        @site.config[:navigation_bar_entries].each do |navbar_entry|
+        @config[:navigation_bar_entries].each do |navbar_entry|
             item_list << @items.find { |i| i[:canonical_identifier] == navbar_entry and language_code_of(i) == language }
         end
         return item_list

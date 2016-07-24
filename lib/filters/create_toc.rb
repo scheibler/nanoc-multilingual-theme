@@ -1,5 +1,5 @@
 require 'uri'
-class CreateTOC < Nanoc3::Filter
+class CreateTOC < Nanoc::Filter
     identifier :create_toc
     def run(content, params={})
         toc = "## %s ##\n\n" % translate_string(language_code_of(item), 'heading_table_of_contents')

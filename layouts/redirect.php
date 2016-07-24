@@ -19,7 +19,7 @@ function is_secure() {
 }
 
 // prepare base url
-$base_url = '<%= @site.config[:base_url] %>';
+$base_url = '<%= @config[:base_url] %>';
 // remove heading http:// and https:// from base url
 if (strpos($base_url, "http://") === 0) {
     $base_url = str_replace('http://', '', $base_url);

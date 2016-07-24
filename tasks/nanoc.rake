@@ -6,7 +6,7 @@ task :compile do
     system('nanoc co') or exit!(1)
 end
 
-desc "Check compiled website"
+desc "Check of compiled website"
 task :check do
     system('nanoc check ilinks') or exit!(1)
     system('nanoc check elinks') or exit!(1)

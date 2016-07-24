@@ -15,39 +15,39 @@
 
 preprocess do
     # redirect index page
-    items << Nanoc::Item.new(
+    @items.create(
         "<%= render 'redirect' %>", { :kind => 'redirect' }, "/")
     # create various blog sites in all supported languages
     # if you don't use the blog pattern at your site, you can delete the rest of the preprocess block
     for language in LANGUAGE_CODE_TO_NAME_MAPPING.keys do
         article_list = sorted_blog_article_list_for(language)
         # blog main page
-        items << Nanoc::Item.new( "",
+        @items.create( "",
             { :kind => 'article_list', :title => 'Blog', :canonical_identifier => 'blog_home', :start_index => 0 },
             "/" + language + "/blog/")
         # blog index pages for older articles
-        article_index = @site.config[:number_of_articles_at_blog_index_page]
+        article_index = @config[:number_of_articles_at_blog_index_page]
         site_index = 2
         while article_index < article_list.length
-            items << Nanoc::Item.new( "",
+            @items.create( "",
                 { :kind => 'article_list', :title => translate_string(language, 'blog_title_page_number') % site_index,
                     :canonical_identifier => "blog_home%d" % site_index, :start_index => article_index },
                 "/" + language + "/blog/index-%.2d/" % site_index)
-            article_index += @site.config[:number_of_articles_at_blog_index_page]
+            article_index += @config[:number_of_articles_at_blog_index_page]
             site_index += 1
         end
         # blog rss feed
-        items << Nanoc::Item.new(
-            "<%= atom_feed :title => @site.config[:blog_title], :author_name => @site.config[:site_author],
-                :author_uri => @site.config[:base_url], :limit => @site.config[:number_of_rss_feed_entries],
+        @items.create(
+            "<%= atom_feed :title => @config[:blog_title], :author_name => @config[:site_author],
+                :author_uri => @config[:base_url], :limit => @config[:number_of_rss_feed_entries],
                 :articles => sorted_blog_article_list_for(language_code_of(item)) %>",
             { :kind => 'feed' }, "/" + language + "/blog/feed/")
         # tags main page
-        items << Nanoc::Item.new( "",
+        @items.create( "",
             { :kind => 'tag_list', :title => 'Tags', :canonical_identifier => 'tag_list', :start_index => 0 },
             "/" + language + "/blog/tags/")
         all_tags(language, true).each do |tag|
-            items << Nanoc::Item.new( "",
+            @items.create( "",
                 { :kind => 'article_list_for_tag', :title => 'Tag %s' % tag[0], :tag => tag[0],
                     :count => tag[1], :canonical_identifier => 'articles_for_tag_%s' % tag[0].gsub(' ','_') },
                 "/" + language + "/blog/tags/" + tag[0].gsub(' ','-') + "/")
@@ -84,23 +84,23 @@ compile '*' do
 end
 
 route '*' do
-    if item.identifier.match(/\/blog\/[0-9]{4}\//) != nil
+    if item.identifier.to_s.match(/\/blog\/[0-9]{4}\//) != nil
         y,m,d,slug = /([0-9]+)\-([0-9]+)\-([0-9]+)\-([^\/]+)/
-            .match(item.identifier).captures
+            .match(item.identifier.to_s).captures
         path = "/" + language_code_of(item) + "/blog/#{y}/#{m}/#{slug}"
         if item[:kind] == 'article'
             path + "/index.html"
         else
             path + "/" + item.raw_filename.split("/")[-1]
         end
-    elsif item.identifier.match(/\/blog\/index-[0-9]{2}\//) != nil
-        item.identifier[0...-1] + '.html'
-    elsif item.identifier.match(/\/blog\/feed\//) != nil
+    elsif item.identifier.to_s.match(/\/blog\/index-[0-9]{2}\//) != nil
+        item.identifier.to_s[0...-1] + '.html'
+    elsif item.identifier.to_s.match(/\/blog\/feed\//) != nil
         item.identifier.chop + '.xml'
-    elsif item.identifier.match(/\/blog\/tags\//) != nil
+    elsif item.identifier.to_s.match(/\/blog\/tags\//) != nil
         item.identifier.chop + '.html'
     elsif item[:kind] == 'redirect'
-        item.identifier + 'index.php'
+        item.identifier.to_s + 'index.php'
     elsif item.binary?
         # Write item with identifier /foo/ to /foo.ext
         if item[:extension] == nil
@@ -110,7 +110,7 @@ route '*' do
         end
     else
         # Write item with identifier /foo/ to /foo/index.html
-        item.identifier + 'index.html'
+        item.identifier.to_s + 'index.html'
     end
 end
 

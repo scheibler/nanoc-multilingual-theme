@@ -2,7 +2,7 @@
 <html lang="<%= language_code_of(@item) %>">
     <head>
         <meta charset="utf-8">
-        <meta name="author" content="<%= @site.config[:site_author] %>" />
+        <meta name="author" content="<%= @config[:site_author] %>" />
         <title><%= @item[:title] %></title>
         <link rel="stylesheet" href="<%= @items['/stylesheet/'].path %>">
     </head>
