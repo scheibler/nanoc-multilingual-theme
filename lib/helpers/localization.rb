@@ -82,8 +82,8 @@ module Custom::Localization
             return "Keine Artikel verfügbar"
         end
         # folder: /lib/
-        if identifier == "posted_at_date"
-            return "Geschrieben am: %s" % attribute_to_time(params[:created_at]).strftime('%d.%m.%Y')
+        if identifier == "author_and_date"
+            return "Geschrieben von %s am %s" % [params[:author], attribute_to_time(params[:created_at]).strftime('%d.%m.%Y')]
         elsif identifier == "continue_reading"
             return "Weiterlesen &rsaquo;"
         end
@@ -129,8 +129,8 @@ module Custom::Localization
             return "No articles available"
         end
         # folder: /lib/
-        if identifier == "posted_at_date"
-            return "Posted at: %s" % attribute_to_time(params[:created_at]).strftime('%B %-d, %Y')
+        if identifier == "author_and_date"
+            return "Posted by %s at %s" % [params[:author], attribute_to_time(params[:created_at]).strftime('%B %-d, %Y')]
         elsif identifier == "continue_reading"
             return "Continue reading &rsaquo;"
         end

@@ -12,13 +12,14 @@ def create_new_article(title, date, language)
     end
     puts "Creating new post: #{filename}"
     open(filename, 'w') do |post|
-        post.puts '---'
-        post.puts "title: \"%s\"" % title
-        post.puts 'kind: article'
+        post.puts "---"
+        post.puts "title: %s" % title
+        post.puts "author: "
+        post.puts "kind: article"
         post.puts "created_at: %s" % date.strftime('%Y-%m-%d %H:%M:%S')
         post.puts "canonical_identifier: %s" % date.strftime('%Y%m%d%H%M%S')
-        post.puts 'tags:'
-        post.puts "---\n\n"
+        post.puts "tags:"
+        post.puts "---\n\n\n\n<!-- more -->\n\n"
     end
 end
 

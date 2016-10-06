@@ -1,17 +1,21 @@
 <% render 'blog/default' do %>
 	<article class='post'>
-    	<h1><%= item[:title] %></h1>
+        <header>
+        	<h1><%= item[:title] %></h1>
+            <p><%= get_author_and_date(item) %></p>
+        </header>
 		<%= yield %>
-		<footer>
-            <p><%= get_pretty_date(item) %></p>
-            <p>Tags:
-            <% item[:tags].each do |tag| %>
-                <%= link_to(tag, "/%s/blog/tags/%s.html" % [language_code_of(item), tag.gsub(' ','-')]) %>
-                <% if item[:tags][-1] != tag %>
-                    &nbsp;<strong>&middot;</strong>&nbsp;
+        <% if item[:tags] %>
+		    <footer>
+                <p>Tags:
+                <% item[:tags].each do |tag| %>
+                    <%= link_to(tag, "/%s/blog/tags/%s.html" % [language_code_of(item), tag.gsub(' ','-')]) %>
+                    <% if item[:tags][-1] != tag %>
+                        &nbsp;<strong>&middot;</strong>&nbsp;
+                    <% end %>
                 <% end %>
-            <% end %>
-            </p>
-        </footer>
+                </p>
+            </footer>
+        <% end %>
 	</article>
 <% end %>

@@ -3,9 +3,11 @@ module Custom::Tags
     def all_tags(language, sorted_by_count, limit = 0)
         tag_hash = {}
         sorted_blog_article_list_for(language).each do |item|
-            item[:tags].each do |tag|
-                if tag_hash.has_key?(tag) == false
-                    tag_hash[tag] = all_articles_for_tag(language, tag).length
+            if item[:tags]
+                item[:tags].each do |tag|
+                    if tag_hash.has_key?(tag) == false
+                        tag_hash[tag] = all_articles_for_tag(language, tag).length
+                    end
                 end
             end
         end
@@ -22,9 +24,11 @@ module Custom::Tags
     def all_articles_for_tag(language, tag)
         article_list = []
         sorted_blog_article_list_for(language).each do |item|
-            item[:tags].each do |t|
-                if t== tag
-                    article_list << item
+            if item[:tags]
+                item[:tags].each do |t|
+                    if t== tag
+                        article_list << item
+                    end
                 end
             end
         end

@@ -4,7 +4,7 @@
         <article class='post'>
             <header>
                 <h2><%= link_to post[:title], post.path %></h2>
-                <p><%= get_pretty_date(post) %></p>
+                <p><%= get_author_and_date(post) %></p>
             </header>
             <%= get_post_start(post) %>
         </article>

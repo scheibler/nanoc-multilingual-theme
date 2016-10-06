@@ -8,3 +8,10 @@ Version 0.2.0: 2016-07-25
 - Converted template to nanoc4
 - new rake tasks local and remote
 
+Version 0.2.1: 2016-10-06
+- Changes in article processing:
+    - Added author field (if empty, use site author)
+    - Tag list not longer mandatory
+- Added author and date in the article's HTML header
+- Updated new_article rake task
+

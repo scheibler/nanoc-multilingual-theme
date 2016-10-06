@@ -1,7 +1,11 @@
 module Custom::PostHelper
 
-    def get_pretty_date(post)
-        translate_string(language_code_of(post), "posted_at_date", { :created_at => post[:created_at] })
+    def get_author_and_date(post)
+        if post[:author]
+            translate_string(language_code_of(post), "author_and_date", { :author => post[:author], :created_at => post[:created_at] })
+        else
+            translate_string(language_code_of(post), "author_and_date", { :author => @config[:site_author], :created_at => post[:created_at] })
+        end
     end
 
     def get_post_start(post)
