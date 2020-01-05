@@ -15,9 +15,14 @@ task :check do
     system('nanoc check html') or exit!(1)
 end
 
-desc "Deploy output folder to webserver"
+desc "Deploy output folder to public webserver"
 task :deploy do |t|
     system('nanoc deploy --target public') or exit!(1)
+end
+
+desc "Deploy output folder to test webserver"
+task :deploy_to_test_server do |t|
+    system('nanoc deploy --target test') or exit!(1)
 end
 
 desc "Start internal webserver on port 3000"

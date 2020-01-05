@@ -112,4 +112,8 @@ deploy:
         kind: rsync
         dst: "user@host:/path/to/html_folder"
         options: [ '-aP', '--delete-after' ]
+    test:
+        kind: rsync
+        dst: "user@host:/path/to/test/html_folder"
+        options: [ '-aP', '--delete-after' ]
 
