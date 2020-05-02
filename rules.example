@@ -16,7 +16,7 @@
 preprocess do
     # redirect index page
     @items.create(
-        "<%= render 'redirect' %>", { :kind => 'redirect' }, "/")
+        "<%= render 'redirect' %>", { :kind => 'redirect' }, "/language_redirect")
     # create various blog sites in all supported languages
     # if you don't use the blog pattern at your site, you can delete the rest of the preprocess block
     for language in LANGUAGE_CODE_TO_NAME_MAPPING.keys do
@@ -24,7 +24,7 @@ preprocess do
         # blog main page
         @items.create( "",
             { :kind => 'article_list', :title => 'Blog', :canonical_identifier => 'blog_home', :start_index => 0 },
-            "/" + language + "/blog/")
+            "/" + language + "/blog")
         # blog index pages for older articles
         article_index = @config[:number_of_articles_at_blog_index_page]
         site_index = 2
@@ -32,7 +32,7 @@ preprocess do
             @items.create( "",
                 { :kind => 'article_list', :title => translate_string(language, 'blog_title_page_number') % site_index,
                     :canonical_identifier => "blog_home%d" % site_index, :start_index => article_index },
-                "/" + language + "/blog/index-%.2d/" % site_index)
+                "/" + language + "/blog/index-%.2d" % site_index)
             article_index += @config[:number_of_articles_at_blog_index_page]
             site_index += 1
         end
@@ -41,16 +41,16 @@ preprocess do
             "<%= atom_feed :title => @config[:blog_title], :author_name => @config[:site_author],
                 :author_uri => @config[:base_url], :limit => @config[:number_of_rss_feed_entries],
                 :articles => sorted_blog_article_list_for(language_code_of(item)) %>",
-            { :kind => 'feed' }, "/" + language + "/blog/feed/")
+            { :kind => 'feed' }, "/" + language + "/blog/feed")
         # tags main page
         @items.create( "",
             { :kind => 'tag_list', :title => 'Tags', :canonical_identifier => 'tag_list', :start_index => 0 },
-            "/" + language + "/blog/tags/")
+            "/" + language + "/blog/tags")
         all_tags(language, true).each do |tag|
             @items.create( "",
                 { :kind => 'article_list_for_tag', :title => 'Tag %s' % tag[0], :tag => tag[0],
                     :count => tag[1], :canonical_identifier => 'articles_for_tag_%s' % tag[0].gsub(' ','_') },
-                "/" + language + "/blog/tags/" + tag[0].gsub(' ','-') + "/")
+                "/" + language + "/blog/tags/" + tag[0].gsub(' ','-'))
         end
     end
 end
@@ -84,7 +84,7 @@ compile '*' do
 end
 
 route '*' do
-    if item.identifier.to_s.match(/\/blog\/[0-9]{4}\//) != nil
+    if item.identifier.to_s.match(/\/blog\/[0-9]{4}/) != nil
         y,m,d,slug = /([0-9]+)\-([0-9]+)\-([0-9]+)\-([^\/]+)/
             .match(item.identifier.to_s).captures
         path = "/" + language_code_of(item) + "/blog/#{y}/#{m}/#{slug}"
@@ -93,14 +93,14 @@ route '*' do
         else
             path + "/" + item.raw_filename.split("/")[-1]
         end
-    elsif item.identifier.to_s.match(/\/blog\/index-[0-9]{2}\//) != nil
-        item.identifier.to_s[0...-1] + '.html'
-    elsif item.identifier.to_s.match(/\/blog\/feed\//) != nil
-        item.identifier.chop + '.xml'
-    elsif item.identifier.to_s.match(/\/blog\/tags\//) != nil
-        item.identifier.chop + '.html'
-    elsif item[:kind] == 'redirect'
-        item.identifier.to_s + 'index.php'
+    elsif item.identifier.to_s.match(/\/blog\/index-[0-9]{2}/) != nil
+        item.identifier + '.html'
+    elsif item.identifier.to_s.match(/\/blog\/tags/) != nil
+        item.identifier + '.html'
+    elsif item.identifier.to_s.match(/\/blog\/feed/) != nil
+        item.identifier + '.xml'
+    elsif item.identifier.to_s.match(/\/language_redirect/) != nil
+        '/index.php'
     elsif item.binary?
         # Write item with identifier /foo/ to /foo.ext
         if item[:extension] == nil
@@ -109,8 +109,8 @@ route '*' do
             item.identifier.chop + '.' + item[:extension]
         end
     else
-        # Write item with identifier /foo/ to /foo/index.html
-        item.identifier.to_s + 'index.html'
+        # Write item with identifier /foo to /foo/index.html
+        item.identifier + '/index.html'
     end
 end
 
