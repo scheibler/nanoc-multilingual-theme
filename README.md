@@ -33,7 +33,10 @@ $ vim ~/.zshrc
 [...]
 # local ruby gem binary folder
 if which ruby >/dev/null && which gem >/dev/null; then
-    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+    gem_path=$(gem env gempath | cut -d ':' -f1)/bin
+    if [ -d "$gem_path" ] ; then
+        PATH="$gem_path:$PATH"
+    fi
 fi
 [...]
 ```

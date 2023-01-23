@@ -15,11 +15,11 @@ class CreateTOC < Nanoc::Filter
             if match[0] == "##"
                 hlevel2 += 1
                 hlevel3 = 0
-                toc << "* [%d. %s](#%s)\n" % [hlevel2, match[1], URI::encode(match[1].downcase.gsub(' ', '-'))]
+                toc << "* [%d. %s](#%s)\n" % [hlevel2, match[1], CGI.escape(match[1].downcase.gsub(' ', '-'))]
             end
             if match[0] == "###"
                 hlevel3 += 1
-                toc << "    + [%d.%d %s](#%s)\n" % [hlevel2, hlevel3, match[1], URI::encode(match[1].downcase.gsub(' ', '-'))]
+                toc << "    + [%d.%d %s](#%s)\n" % [hlevel2, hlevel3, match[1], CGI.escape(match[1].downcase.gsub(' ', '-'))]
             end
         end
         content.gsub('<!-- toc -->', toc)
