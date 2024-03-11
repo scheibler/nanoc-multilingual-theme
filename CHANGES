@@ -3,6 +3,18 @@ Change Log
 
 
 
+Version 0.2.3: 2024-03-10
+-------------------------
+
+Improvements in the table-of-contents creation function:
+- Doesn't need a trailing # at the end of the headings any more
+- Filters empty links (<a ...></a>) from the heading text (these links can be used as local anchors in the html document)
+
+Bug fixes:
+- Trailing // removed from the main navigation links
+
+
+
 Version 0.2.2: 2020-05-01
 -------------------------
 
